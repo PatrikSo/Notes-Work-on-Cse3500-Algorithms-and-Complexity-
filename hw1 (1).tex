@@ -1,0 +1,523 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+
+\usepackage{listings}
+\usepackage{color}
+\usepackage{textcomp}
+
+\definecolor{pblue}{rgb}{0.13,0.13,1}
+\definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.9,0,0}
+\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+
+\lstset{language=Java,
+  showspaces=false,
+  showtabs=false,
+  breaklines=true,
+  showstringspaces=false,
+  breakatwhitespace=true,
+  commentstyle=\color{pgreen},
+  keywordstyle=\color{pblue},
+  stringstyle=\color{pred},
+  basicstyle=\ttfamily,
+  moredelim=[il][\textcolor{pgrey}]{$$},
+  moredelim=[is][\textcolor{pgrey}]{\%\%}{\%\%}
+}
+
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#1}
+\newcommand{\hmwkDueDate}{February 1, 2019}
+\newcommand{\hmwkClass}{Algorithms and Complexity}
+\newcommand{\hmwkClassTime}{}
+\newcommand{\hmwkClassInstructor}{Professor Bradford}
+\newcommand{\hmwkAuthorName}{\textbf{Patrik Sokolowski} }
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 3:10pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Page 22, Exercise 1.
+
+  
+
+
+    \solution \\
+    \textbf{Explanation or Counterexample}\\
+
+  \(True or False?\) In every instance of the Stable Matching Problem, There is
+  a stable matching containing a pair (m, w) such that m is ranked first on the
+  preference list of w and w is ranked first on the preference list of m.
+  
+  \[
+  False!
+
+  Consider:
+  \]
+  \begin{center}
+  \includegraphics{Male Female preference lists.PNG}
+  Picture Provided by Professor Bradford's Power Point 
+  \end{center}
+
+  m1 prefers w1 and m2 prefers w1
+  w1 prefers m1 and w2 prefers m1
+  \newline
+  \\
+  It is impossible to have all four people have their number 1 preferences if
+  two on each side prefer one on the other side.
+  \\
+  Having m1 and m2 prefer w1 will make it impossible to satisfy this unless a 
+  polygamous rule is put in. Both m's cannot be made into a perfect match.
+  \\
+  Having w1 and w2 prefer m1 wil make it impossible to satisfy this unless a 
+  polygamous rule is put in. Both w's cannot be made into a perfect match.
+
+\end{homeworkProblem}
+
+
+
+%
+%
+\pagebreak
+%
+%
+
+%
+%
+%
+\begin{homeworkProblem}
+  Page 22, Exercise 2.
+
+    \solution \\
+    \textbf{Explanation or Counterexample}\\
+
+  \(True or False?\) Consider an instance of the Stable Matching Problem in which
+  there exists a man m and a woman w such that m is ranked first on the preference
+  list of w and w is ranked first in the preference list of m. Then, in every stable matching
+  S for this intance, the pair (m, w) belongs to S.
+
+  \[
+  True!
+
+  Consider the pairs:
+ \\
+  (m, w^1 ) and ( m^1 , w)
+  \]
+
+  We know m prefers w and w prefers m. If given any different match-ups such as the ones
+  above we get instabilities which are not perfect pairs. This would not hold in this instance,
+  only showing (m, w) belongs in S. We wouldn't be able to satisfy the instance which wants
+  (m,w) belonging to S, so we need (m, w) matched.
+  
+
+\end{homeworkProblem}
+
+
+%
+%
+\pagebreak
+%
+%
+
+\begin{homeworkProblem}
+
+Give an inductive proof of 
+
+\begin{eqnarray*}
+\sum_{i=0}^{n-1} (2i+1) & = & n^2.
+\end{eqnarray*}
+
+    \solution \\
+
+    \begin{proof}
+      Put your proof here.
+      \end{proof}
+
+Proof:
+
+\begin{eqnarray*}
+Basis: n = 1
+\\
+Left side: &
+\sum_{i=0}^{1-1} (2(0)+1) & = 1
+\\
+Right side: &
+(1)^2 & = 1
+\end{eqnarray*}
+
+
+\\ 
+Both sides are equal, making it true for n=1
+
+\begin{eqnarray*}
+Induction Step: assuming \, (n = 1) \, is \, true \, for \, (n = c)
+\\
+\sum_{i=0}^{c-1+1} (2i+1) & = & \sum_{i=0}^{c-1} (2i+1) + (2(c+1)-1)
+\\
+= & c^2 + 2(c+1) - 1 & (induction hypothesis)
+\\
+= & c^2 + 2c + 1 & =  (c+1)^2  (right side)
+\\
+\end{eqnarray*}
+So this must hold for all n\leq
+2
+
+
+\end{homeworkProblem}
+
+
+%
+%
+\pagebreak
+%
+%
+
+\begin{homeworkProblem}
+Let 
+\begin{eqnarray}
+f(n) & = & \sum_{i=0}^{n-1} x^i, \label{MainEQ}
+\end{eqnarray}
+
+\noindent
+Do each of the following,\\
+
+
+ \part
+
+ Prove $f(n) = f(n-1) + x^{n-1}$
+
+ %
+ %
+ \vspace{0.1in}
+ %
+ %
+
+
+    \begin{proof}
+      \\
+     $ Basis: f(2) = f(1)
+      \\
+      f(1) & = & \sum_{i=0}^{1-1} x^i & = & 1
+      \\
+      so \,\,\,\,\,& f(2) & = & 1 + x
+      \\
+      and \,\,\,\,\,& \sum_{i=0}^{n-1} x^i & = & {1 + x} \,\,\,\,\, for \,\,\,\,\, n=2$
+      \\
+      \\
+      \\
+      Inductive hypothesis:
+      \\
+      say for n\leq k, \,\,\, some \,\,\, k
+      \\
+      f(n) & = & \sum_{i=0}^{k-1} x^i
+      \\
+      Suppose, FSOC (For\,\, Sake\,\, Of\,\, Contradiction), k \,\, is\,\, the\,\, smallest\,\, integer\,\, where\,\,\,\,  f(k) & \neq & \sum_{i=0}^{k-1} x^i
+      \\
+      by\,\, definition,\,\, f(k) & = & f(k-1) & + & x^{k-1} 
+      \\
+      However\,\, f(k-1) = \sum_{i=0}^{k-2} x^i
+      \\
+      and\,\, f(k) & = & f(k-1) & + & x^{k-1}
+      \\
+      This\,\, means\,\, there\,\, can\,\, be\,\, no\,\, minimal\,\, k\,\, where
+      \\
+      f(k) & \neq & \sum_{i=0}^{k-1} x^i
+    \end{proof}
+
+ %
+ %
+ \vspace{1in}
+ %
+ %
+
+
+ \part 
+
+ Prove $f(n) = xf(n-1) + 1$
+
+ %
+ %
+ \vspace{0.1in}
+ %
+ %
+
+
+    \begin{proof}
+      \\
+     $ Basis: n = 2
+      \\
+      f(2) & = & xf(1) & + & 1
+      \\
+      \sum_{i=0}^{1-1} x^i & + & 1
+      \\
+      f(2) = x + 1
+      \\
+      \\
+      Inductive\,\, hypothesis:
+      f(n) = xf(n-1) + 1 \,\,\,\, \forall \,\,\,\, n \leq C
+      \\
+      Inductive\,\, Step:
+      f(n)\,\, fails\,\, first\,\, for\,\, n
+      \\
+      f(n) = xf(n-1)+1,\,\, by \,\, I.H:
+      \\
+      \sum_{i=0}^{n-2} x^i & + & 1 \,\,\,\,\,\,\,\,\,\, \sum_{i=0}^{n-2} x^{i + 1}
+      \\
+      f(n) = \sum_{i=1}^{n-1} x^i & + & 1  \,\,\,\,\,\,\,\,\,\,  \sum_{i=1}^{n-1} x^{i + 1}
+
+
+
+    \end{proof}
+ %
+ %
+ \vspace{1in}
+ %
+ %
+
+
+ \part 
+
+ Prove $f(n) = (x^n-1)/(x-1)$
+ 
+ %
+ %
+ \vspace{0.1in}
+ %
+ %
+    \begin{proof}
+      \\
+     $ Basis: f(2) = f(1)
+      \\
+      f(1) & = & \sum_{i=0}^{1-1} x^i & = & 1
+      \\
+      so \,\,\,\,\,& f(2) & = & 1 + x
+      \\
+      and \,\,\,\,\,& \sum_{i=0}^{n-1} x^i & = & {1 + x} \,\,\,\,\, for \,\,\,\,\, n=2$
+      \\
+      \\
+      \\
+      Inductive hypothesis:
+      \\
+      say for n\leq k, \,\,\, some \,\,\, k
+      \\
+      f(n) & = & \sum_{i=0}^{k-1} x^i
+      \\
+      Suppose, FSOC (For\,\, Sake\,\, Of\,\, Contradiction), k \,\, is\,\, the\,\, smallest\,\, integer\,\, where\,\,\,\,  f(k) & \neq & \sum_{i=0}^{k-1} x^i
+      \\
+      by\,\, definition,\,\, f(k) & = & (x^{n} -1) / (x-1) 
+      \\
+      However\,\, f(2) & = & 1 + x & \neq & (x^{2} -1) / (x-1) 
+      \\
+      and\,\, f(k) & = & (x^{2} -1) / (x-1) 
+      \\
+      This\,\, means\,\, there\,\, can\,\, be\,\, no\,\, minimal\,\, k\,\, where
+      \\
+      f(k) & \neq & \sum_{i=0}^{k-1} x^i      
+    \end{proof}
+
+ %
+ %
+ \vspace{1in}
+ %
+ %
+
+ \part 
+
+ What happens when $x=1$, how about for Equation~\ref{MainEQ}?
+\\
+f(n) & = & \sum_{i=0}^{n-1} 1^i
+\\
+f(1) & = & \sum_{i=0}^{1-1} 1^i & = & 1 \,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,=\,\,\,\,\,\,\,1\\
+f(2) & = & \sum_{i=0}^{2-1} 1^i & = & 1 + 1 \,\,\,\,\,\,\,\,\,\,\,=\,\,\,\,\,\,\,2\\
+f(3) & = & \sum_{i=0}^{3-1} 1^i & = & 1 + 1 + 1 \, = \,\,\,\,\,\,\,3\\
+f(n) & = & \sum_{i=0}^{n} n
+\\
+
+
+
+
+
+Part A:
+\\
+f(n) & = & f(n-1)&x^{n-1}
+\\
+f(n) & = & f(n-1)&1^{n-1}
+\\
+Basis: f(1) = 1 &\,\, and\,\, & f(2) = 2
+\\
+Suppose, FSOC (For\,\, Sake\,\, Of\,\, Contradiction), k \,\, is\,\, the\,\, smallest\,\, integer\,\, where\,\,\,\,  f(k) & \neq & \sum_{i=0}^{k-1} x^i
+\\
+by\,\, definition,\,\, f(k) & = & f(k-1)&1^{k-1} 
+\\
+However, f(1) & = & 0 & \neq & \sum_{i=0}^{1-1} 1^i & = & 1
+\\
+This\,\, means\,\, there\,\, can\,\, be\,\, no\,\, minimal\,\, k\,\, where
+\\
+ f(k) & \neq & \sum_{i=0}^{k-1} x^i
+\\
+
+
+
+
+Part B:
+\\
+Basis: n = 1
+\\
+f(n) & = & \sum_{i=0}^{1-1} 1^i & = & (1)f(1-1)+1
+\\
+Inductive hypothesis: 
+\\
+\sum_{i=0}^{n-1} 1^i & = & (1)f(n-1)+1 \,\, \forall \,\, n \,\, \leq \,\, C
+\\
+Inductive Step:
+\\
+ (1)f(n-1)+1 \,\, always \,\, equals \,\, \sum_{i=0}^{n-1} 1^i \,\, 
+\\
+f(n-1)+1 & = & f(n) 
+\\
+by \,\, definition \,\, will = &  \sum_{i=0}^{n-1} 1^i
+\\
+
+
+
+
+Part C:
+\\
+f(n) & = & (x^{2} -1) / (x-1)
+\\
+f(n) & = & (1^{2} -1) / (1-1)
+\\
+f(n) = 0
+\end{homeworkProblem}
+
+\end{document}

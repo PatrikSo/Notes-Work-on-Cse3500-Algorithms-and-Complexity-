@@ -1,0 +1,444 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+
+\usepackage{listings}
+\usepackage{color}
+\usepackage{textcomp}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{property}{Property}
+\newtheorem{lemma}{Lemma}
+\newtheorem{fact}{Fact}
+\newtheorem{definition}{Definition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{convention}{Convention}
+\newtheorem{remark}{Remark}
+\newtheorem{observation}{Observation}
+\newtheorem{conjecture}{Conjecture}
+
+
+\definecolor{pblue}{rgb}{0.13,0.13,1}
+\definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.9,0,0}
+\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+
+
+
+
+\lstdefinelanguage{bash}{
+  keywords={sudo, apt-get, ifconfig, mosquitto_pub, mosquitto_sub, ping},
+  basicstyle=\small,
+  alsoletter=?!-,
+  alsodigit=\$\%&*+./:<=>@^_~,
+  sensitive=false,
+  morecomment=[l]{\#},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]'',
+  basicstyle=\small\ttfamily,
+  keywordstyle=\bf\ttfamily\color[rgb]{0,.3,.7},
+  commentstyle=\color[rgb]{0.133,0.545,0.133},                                                                            
+  stringstyle={\color[rgb]{0.75,0.49,0.07}},
+  upquote=true,
+  breaklines=true,
+  breakatwhitespace=true,
+  literate=*{`}{{`}}{1},
+  keywords=[2]{myRed},
+  keywordstyle=[2]\color{red}
+}
+
+\lstset{language=Python,
+  keywords={nx,plt,np,mp,pg},
+  showspaces=false,
+  showtabs=false,
+  breaklines=true,
+  showstringspaces=false,
+  breakatwhitespace=true,
+  commentstyle=\color{pgreen},
+  keywordstyle=\color{red},
+  stringstyle=\color{pred},
+  basicstyle=\ttfamily,
+  moredelim=[il][\textcolor{pgrey}]{$$},
+  moredelim=[is][\textcolor{pgrey}]{\%\%}{\%\%}
+}
+
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#4}
+\newcommand{\hmwkDueDate}{March 15, 2019}
+\newcommand{\hmwkClass}{Algorithms and Complexity}
+\newcommand{\hmwkClassTime}{}
+\newcommand{\hmwkClassInstructor}{Professor Bradford}
+\newcommand{\hmwkAuthorName}{\textbf{Super Student} }
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 3:10pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+
+\pagebreak
+
+\begin{homeworkProblem}
+
+Recall our definition of expander graphs.
+
+Given any graph $G = (V, E)$
+and take any subset $S \subseteq V$, we have $S$'s {\em neighbors}
+\begin {eqnarray*}
+N(S) & = & \{ v \in V: (s,v) \in E \mbox{ for some } s \in S \mbox{ and } v \not\in S \}.
+\end {eqnarray*}
+
+A graph expander is a constant degree $d$ graph so that for all $S \subseteq V$ such that $|S| \leq \frac{|V|}{2}$,
+\begin {eqnarray*}
+|N(S)| \geq c|S|
+\end {eqnarray*}
+with constant $c > 1$.
+
+
+A {\em family} of graph expanders with expansion $c$
+is an (infinite) set of $d$-regular (bipartite) graphs
+$\{ G_i \}_{i=1}^{\infty}$ where each $G_i$ is an $(n_i, d, c)$-expander
+and $|V[G_{i+1}]| > |V[G_i]|$ for all $i\geq 1$.
+
+%
+%
+\vspace{0.1in}
+%
+%
+
+Assuming an undirected bipartite graph $G=({\cal I} \cup {\cal O}, E)$ where the vertiex partition ${\cal I}$ and ${\cal O}$ are so that
+
+\begin{eqnarray*}
+|{\cal I}| & = & |{\cal O}|\\
+           & = & \frac{n}{2}.
+\end{eqnarray*}
+
+Supose the edges $E$ are made of two bijections $\{ \ \pi_1, \, \pi_2 \ \}$ from ${\cal I}$ to ${\cal O}$.
+Thus, $|E| = 2n$.
+
+Prove that $G$ cannot be a graph exapander.\\
+
+
+    \solution \\
+
+
+    
+
+\end{homeworkProblem}
+
+
+\pagebreak
+
+
+\begin{homeworkProblem}
+
+
+Suppose $A \subseteq {\cal I}$ and $B \subseteq {\cal O}$ and $|A| = a$ and $|B| = b$ where $a < b$ then
+the number of onto functions from $A$ onto $B$:
+\begin{eqnarray*}
+A & \rightarrow & B
+\end{eqnarray*}
+is
+\begin{eqnarray*}
+b(b-1) \cdots (b-a+1) \, (n - a)!
+\end{eqnarray*}
+since $b - (b-a+1) +1 = a$ so all elements of $A$ are mapped to a unique element of $B$.
+Also, $b > a$.
+Finally, there are $(n-a)!$ additional mappings of the remaining $n-a$ elements of $A$.
+That is, these additional $(n-a)!$ mappings are independent of the other mappings.
+
+
+Given a bipartite graph $G = ({\cal I} \cup {\cal O}, E)$
+where a $1$-factor is a bijection from the inputs ${\cal I}$ to the outputs ${\cal O}$.
+Also, $1$-factors may be called permutations.
+%
+%
+\vspace{0.1in}
+%
+%
+
+
+\noindent
+{\bf Question:} What is the probability of randomly, uniformly selecting 3 bad permutations?
+
+%
+%
+\vspace{0.1in}
+%
+%
+
+
+%                                                                                                                                      
+%                                                                                                                                      
+%                                                                                                                                      
+\begin {theorem}[Most $k \geq 3$-tuples of Random 1-Factors Expand]
+{\sf
+Randomly, uniformly and independently choose $k$ permutations $\pi = (\pi_1, \pi_2, \cdots, \pi_k)$, for $k  \geq 3$,
+each from the set of all permutations on $n$ items.
+Use these permutations to build a $k$-degree bipartite graph $G = ({\cal I} \cup {\cal O}, E)$,
+then $G$ is an expander with high probability.
+}
+\label{MOSTRAND}
+\end {theorem}
+
+\begin {proof}
+Let ${\cal I} = {\cal O} = \{ 1, \cdots, n \}$ and take the $k$-tuple, of
+permutations $\pi = (\pi_1, \pi_2, \cdots, \pi_k)$, where $k \geq 3$ and each $\pi_i$ is chosen uniformly and independently at random.
+
+Each $\pi_i$ defines a 1-factor between ${\cal I}$ and ${\cal O}$.\\
+
+How many different choices are there for any such $k$-tuple~$\pi$ ?\\
+
+
+
+Now, you must show that it is very unlikely to choose a $k$-tuple of permutations
+$\pi$ such that there is a subset $A \subseteq {\cal I}$ where $|A| = n/2$
+and at the same time $\pi_i(A) \subseteq B$, for all $i: k \geq i \geq 1$, where $B \subseteq {\cal O}$ and
+$|B| \leq (1+c)|A|$
+
+
+
+\end{proof}
+
+\end{homeworkProblem}
+
+
+
+
+\pagebreak
+
+\begin{homeworkProblem}
+
+Given the three randonly, uniformly and independently selected permutations from the last problem.
+
+%
+%
+\vspace{0.1in}
+%
+%
+
+Is there any way to select them to maximize the expansion coefficient $c$?
+
+\end{homeworkProblem}
+
+
+
+
+%
+%
+\pagebreak
+%
+%
+
+%
+%
+%
+\begin{homeworkProblem}
+
+
+Install the Python libraries from your terminal as shows in Listing~\ref{terminal}.
+
+\begin{lstlisting}[language=bash,label=terminal,caption=Add Python libraries from a omputer terminal]
+Computer Prompt> pip3 install numpy networkx matplotlib pygraphviz
+\end{lstlisting}
+
+
+Listing~\ref{libraries} shows Python 3 libraries we use.
+These libraries should also be put at the start of Python scripts.\\
+
+\begin{lstlisting}[language=bash,label=libraries,caption=Import libraries in Python]
+Python3> import numpy as np
+Python3> import networkx as nx
+Python3> import matplotlib as mp
+Python3> import pygraphviz as pg
+\end{lstlisting}
+
+Recall the Erd\H{o}s-R\'enyi random graph model.
+The graph in Listing~\ref{ER} is a basic Erd\H{o}s-R\'enyi graph.
+
+\begin{lstlisting}[language=bash,label=ER,caption=Generating basic random graphs in Python]
+r5 = nx.generators.random_graphs.fast_gnp_random_graph(5,0.5)
+
+nx.draw(r5, alpha=0.5)
+plt.xlim(-1.1, 1.1)
+plt.ylim(-1.1, 1.1)
+plt.axis('off')
+plt.draw()
+plt.show()
+\end{lstlisting}
+
+
+The Barab\'asi-Albert (BA) random graph model gives scale-free graphs as discussed in lecture.
+Listing~\ref{C+BA} shows how to create a simple BA graph as well as a cycle graph.
+
+\begin{lstlisting}[language=bash,label=C+BA,caption=Two more interesting graphs]
+c5 = nx.generators.classic.cycle_graph(5) 
+ba = nx.barabasi_albert_graph(50, 2)
+\end{lstlisting}
+
+Graph eigenvalues and eigenvectors can be computed using two Python libraries: numpy and networkx.
+See Listing~\ref{Eigen}.
+
+\begin{lstlisting}[language=bash,label=Eigen,caption=Eigenvalues and vectors of a random graph]
+r5 = nx.generators.random_graphs.fast_gnp_random_graph(5,0.25)
+
+am=nx.adjacency_matrix(r5)
+m=np.matrix(am.todense())
+ev=np.linalg.eigh(m)
+print(ev)
+\end{lstlisting}
+
+
+This exercuse is for you to wirite code and compate the eigenvalues $\lambda_1$ and $\lambda_2$ for both
+the Erd\H{o}s-R\'enyi random graphs as well as Barab\'asi-Albert random graphs.
+
+
+
+
+\end{homeworkProblem}
+
+
+%
+%
+\pagebreak
+%
+%
+
+\begin{homeworkProblem}
+  If the eigenvalues of the adjacency matrix of a graph are such that $\lambda_1 = \lambda_2$, then the graph is disconnected.
+  
+
+
+
+\end{homeworkProblem}
+
+
+
+
+\end{document}

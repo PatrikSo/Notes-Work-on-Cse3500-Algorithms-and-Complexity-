@@ -1,0 +1,333 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+
+\usepackage{listings}
+\usepackage{color}
+\usepackage{textcomp}
+
+\definecolor{pblue}{rgb}{0.13,0.13,1}
+\definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.9,0,0}
+\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+
+\lstset{language=Java,
+  showspaces=false,
+  showtabs=false,
+  breaklines=true,
+  showstringspaces=false,
+  breakatwhitespace=true,
+  commentstyle=\color{pgreen},
+  keywordstyle=\color{pblue},
+  stringstyle=\color{pred},
+  basicstyle=\ttfamily,
+  moredelim=[il][\textcolor{pgrey}]{$$},
+  moredelim=[is][\textcolor{pgrey}]{\%\%}{\%\%}
+}
+
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#3}
+\newcommand{\hmwkDueDate}{February 15, 2019}
+\newcommand{\hmwkClass}{Algorithms and Complexity}
+\newcommand{\hmwkClassTime}{}
+\newcommand{\hmwkClassInstructor}{Professor Bradford}
+\newcommand{\hmwkAuthorName}{\textbf{Patrik Sokolowski} }
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 3:10pm}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+  Chapter 3, Exercise 1.
+\vspace{5mm}\\
+
+Consider the directed acyclic graph G in Figure 3.10. How many topological orderings does it have? \\
+  \begin{center}
+  \includegraphics{figure.PNG}\\
+  Picture Provided by Textbook (Algorithm Design by John Kleinberg) \\
+
+\vspace{5mm}\\
+
+6 Topological orderings:\\
+\vspace{4mm}\\
+a,b,c,d,e,f\\
+a,b,d,c,e,f\\
+a,b,d,e,c,f\\
+a,d,e,b,c,f\\
+a,d,b,c,e,f\\
+a,d,b,e,c,f\\
+(Topological Sort)\\    
+   \end{center}
+
+\end{homeworkProblem}
+
+
+
+%
+%
+\pagebreak
+%
+%
+
+%
+%
+%
+\begin{homeworkProblem}
+  Chapter 3, Exercise 2.
+\vspace{5mm}\\
+
+    Give an algorithm to detect whether a given undirected graph contains a cycle. If has a cycle it should output one. Running time shoud be O(m+n), n nodes and m edges.\\
+\vspace{5mm}\\
+
+Run BFS algorithm on an arbitrary node s, resulting in a list/tree T.\\
+.\hspace{1cm} If every edge of L (our list/tree) appears in the BFS tree, then L = T.\\
+.\hspace{2cm} so L is a list/tree which has no cycles.\\
+.\hspace{1cm} Otherwise there is an edge e=(v,w) that belongs to L but not T.\\
+.\hspace{2cm} Considering the least common ancestor u of v and w in T.\\
+.\hspace{3cm} We get the cycle from the edge e, together with u-v and v-w paths in T.\\
+\vspace{5mm}
+
+We can start with either BFS or DFS which would change our algorithm slightly depending on which is chosen.
+
+
+\end{homeworkProblem}
+
+
+%
+%
+\pagebreak
+%
+%
+
+\begin{homeworkProblem}
+  Chapter 3, Exercise 3.
+
+Extend the topological ordering algorithm so that, given an input directed graph G, it outputs one of two things: (a) a topological ordering, thus establishing the G is a DAG, or (b) a cycle in G, thus esablishing that G is not a DAG. Running time should equal O(m+n) with n nodes and m edges.\\
+\vspace{5mm}\\
+
+  \begin{center}
+  \includegraphics{figure2.PNG}\\
+  Picture Provided by Textbook (Algorithm Design by John Kleinberg) \\
+  \end{center}
+\vspace{5mm}\\
+
+
+Run BFS algorithm on an arbitrary node s, resulting in a list/tree T.\\
+.\hspace{1cm} If every edge of G (our list/tree) appears in the BFS tree, then G = T.\\
+.\hspace{2cm} so G is a list/tree which has no cycles.\\
+.\hspace{3cm} Return topological ordering of G (running topological algorithm above) establishing G is not a DAG.\\
+.\hspace{1cm} Otherwise there is an edge e=(v,w) that belongs to G but not T.\\
+.\hspace{2cm} Considering the least common ancestor u of v and w in T.\\
+.\hspace{3cm} We get the cycle from the edge e, together with u-v and v-w paths in T.\\
+.\hspace{3cm} Return that cycle, establishing G is not a DAG.\\
+\vspace{5mm}
+
+
+\end{homeworkProblem}
+
+
+%
+%
+\pagebreak
+%
+%
+
+
+\begin{homeworkProblem}
+  Chapter 3, Exercise 5.
+
+SHow by the induction that in any binary tree the number of nodes with two children is exactly less than the number of leaves.\\
+\vspace{5mm}\\
+
+\textbf{Proof by Induction:}\\
+\vspace{5mm}\\
+
+.\hspace{1cm} \textbf{Base Case:} root node with 0, 1, or 2 leaves\\
+.\hspace{2cm} Consider the root has no children, then it is a leaf and the tree has 1 leaf with no node with 2 children.\\
+.\hspace{2cm} Consider the root has a single leaf, then again the tree has 1 leaf anf no nodes with 2 children.\\
+.\hspace{2cm} Consider the root has 2 children that are leafs, then the tree has 1 node with 2 children and 2 leafs. \\
+\vspace{1mm}\\
+
+.\hspace{1cm} \textbf{Inductive hypothesis:} T is a binary tree with 'n' nodes.\\
+.\hspace{2cm} The number of nodes with 2 children is exactly 1 less than the number of leaves.\\
+\vspace{1mm}\\
+
+.\hspace{1cm} \textbf{Inductive step:} consider both cases:\\
+.\hspace{2cm} A parent with only 1 child\\
+.\hspace{2cm} A parent that is a leaf\\
+.\hspace{1.5cm} The number of leaves and nodes with 2 children both increment by 1.\\
+.\hspace{1.5cm} Proving I.H. to be true.\\
+
+\end{homeworkProblem}
+
+%
+%
+\pagebreak
+%
+%
+
+
+\begin{homeworkProblem}
+  Chapter 3, Exercise 8.\\
+\vspace{5mm}
+\begin{center}
+claim: There exists a positive natural number c so that for all connected graphs G, it is the case that:\\
+$\frac{diam(G)}{apd(G)}$  \leq c. \\
+\vspace{5mm}\\
+\textbf{false!}\\
+\vspace{5mm}\\
+
+
+Consider constant k,\\
+Take a path to k-1 nodes, u_1 , u_2 , ... , u_{n-1}  \\
+Attach\,\, additional\,\, n-k+1\,\, nodes\,\, (attaching\,\, an\,\, edge\,\, to\,\, u)\\
+.\hspace{1cm} v_1 , v_2 , ... , v_{n-k+1} \\
+diameter\,\, of\,\, G\,\, now\,\, equals\,\, dist( v_1 , v_{k-1} ) & = & k \\
+pairing\,\, both\,\, lists\,\, makes\,\, their\,\, distance\,\, $\leq$ k.\\
+If\,\, we\,\, choose\,\, n-1\,\, $>$ 2k^2 \,\,we\,\, get\,\, apd(G) \,\,lower than\,\, 3. \\
+Given\,\, k\,\, $>$ 3c :\\
+$\frac{diam(G)}{apd(G)}$  & $>$ & $\frac{3c}{3}$ & = & c\\
+Which\,\, disproves\,\, the\,\,
+ claim.\\
+
+\end{center}
+
+\end{homeworkProblem}
+
+%
+%
+\pagebreak
+%
+%
+
+
+\end{document}

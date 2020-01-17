@@ -1,0 +1,336 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+
+\usepackage{listings}
+\usepackage{color}
+\usepackage{textcomp}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{property}{Property}
+\newtheorem{lemma}{Lemma}
+\newtheorem{fact}{Fact}
+\newtheorem{definition}{Definition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{convention}{Convention}
+\newtheorem{remark}{Remark}
+\newtheorem{observation}{Observation}
+\newtheorem{conjecture}{Conjecture}
+
+
+\definecolor{pblue}{rgb}{0.13,0.13,1}
+\definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.9,0,0}
+\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+
+
+
+
+\lstdefinelanguage{bash}{
+  keywords={sudo, apt-get, ifconfig, mosquitto_pub, mosquitto_sub, ping},
+  basicstyle=\small,
+  alsoletter=?!-,
+  alsodigit=\$\%&*+./:<=>@^_~,
+  sensitive=false,
+  morecomment=[l]{\#},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]'',
+  basicstyle=\small\ttfamily,
+  keywordstyle=\bf\ttfamily\color[rgb]{0,.3,.7},
+  commentstyle=\color[rgb]{0.133,0.545,0.133},                                                                            
+  stringstyle={\color[rgb]{0.75,0.49,0.07}},
+  upquote=true,
+  breaklines=true,
+  breakatwhitespace=true,
+  literate=*{`}{{`}}{1},
+  keywords=[2]{myRed},
+  keywordstyle=[2]\color{red}
+}
+
+\lstset{language=Python,
+  keywords={nx,plt,np,mp,pg},
+  showspaces=false,
+  showtabs=false,
+  breaklines=true,
+  showstringspaces=false,
+  breakatwhitespace=true,
+  commentstyle=\color{pgreen},
+  keywordstyle=\color{red},
+  stringstyle=\color{pred},
+  basicstyle=\ttfamily,
+  moredelim=[il][\textcolor{pgrey}]{$$},
+  moredelim=[is][\textcolor{pgrey}]{\%\%}{\%\%}
+}
+
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#5}
+\newcommand{\hmwkDueDate}{March 24, 2019}
+\newcommand{\hmwkClass}{Algorithms and Complexity}
+\newcommand{\hmwkClassTime}{}
+\newcommand{\hmwkClassInstructor}{Professor Bradford}
+\newcommand{\hmwkAuthorName}{\textbf{Patrik Sokolowski} }
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at the start of class}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+
+\pagebreak
+
+\begin{homeworkProblem}
+
+
+Given a digraph $G=(V,E)$ and the edge weigth function $w$ where
+\begin{eqnarray*}
+w: E & \longrightarrow & \mathbb{Z}.
+\end{eqnarray*}
+
+
+That is, each edge has an integer weight.
+
+
+\begin{definition}[Exact path length problem]
+{\sf
+Consider an integer edge weighted digraph $G$.
+Given an integer $\kappa$, the {\em {\bf EPL} (exact path length problem)}
+is to determine whether there is a path between a given pair vertices costing exactly~$\kappa$.
+}
+\label{Exact_Path}
+\end{definition}
+
+
+{\bf Show the exact path problem is ${\cal NP}$-complete}.
+
+\vspace{0.1in}
+
+We can show that a problem is NP-complete by (1) Showing it's NP hard and (2) relating it to another NP complete problem. This problem here is 100 \% NP-complete as we can solve this in polynomial time. If we take a set of k nodes, in polynomial time we can check each distance to each node and sum them for the exact path length. \\
+
+(1)To show it's NP hard we can simply show it is P hard. P class algorithms are by default also NP hard. We can show this by proving a linear time algorithm exists to do this, here is my psuedo code. This code takes a begining node and runs off in the graph until it finds the node it was looking for. This is NP-hard as there is a polynomial time reduction from every piece as well. By varifying this solution, there exists a deterministic way to solve the problem, which means it is still NP-Hard. \\
+
+Grab the first node\\
+Verify the node's edges \\
+Choose an edge to go off of.\\
+If the edge hits a dead end, we go back and continue off the previous node.\\
+With given edges (saved) continue through the graph.\\
+while traversing, we will save the weights/paths. \\
+if we hit a dead end, there is no path, meaning there is no cost k that will ever lead us to given node (possible that the node to go to doesn't exist)\\
+if we hit the wanted node, sum the weights/paths. (a subset of sums in the graph)\\
+if the path at any point costs more than k, we go back to previous node and try again.\\
+if the path completes and the cost is lower than k, we go back.\\
+if the path finds our wanted node and cost = k, return the path.\\
+otherwise k isn't applicable to the graph.\\
+
+This can possibly also tell us that the SubsetSum problem and the EPL problem are similar. This helps us in (2).\\
+
+(2) Every problem that is NP-complete can be reduced to a 3SAT problem. With that, we can also compare the EPL problem to the SubSet problem as we are grabing a subset of the graph and summing once the conditions are met. SubSet Sum (SS) can also be reduced to 3SAT. Given an instance of the EPL problem and SS problem, we can compare their 'algorithm routines' mid-run and show that they equal.  \\
+
+When EPL algorith mis running we are constantly checking/saving sums/paths. SS does this as well when applied to a graph.
+
+\end{homeworkProblem}
+
+
+\pagebreak
+
+
+\begin{homeworkProblem}
+
+
+Page 505, \# 2.
+
+\begin{center}
+\includegraphics[scale = .70]{problem2figure1.PNG}\\
+\end{center}
+
+\vspace{0.1in}
+
+This problem NP-complete. If we grab a set of k customers we can prove in polynomial time that no 2 bought the same item in a given instance. Given that we can get our diverse set of customers.\\
+
+With a graph G and a customer per node, we can assign the product to an edge. We can make a list saying customer k bought product e if e is an edge to that customer node. We can ask the list if it has a diverse-subset of size k. \\
+
+If there is a diverse subset in the graph, those nodes will have unique edges that aren't shared, with that we can get the independent set of size k and return it for said research. This can be directly related to if they are diverse or not as if each unique customer (k) holds a unique edge, they are by default having said unique product that no two customers have bought. \\
+
+Psuedo code to prove this:\\
+\vspace{0.1in}
+
+in Grapg G start at a random point (or un-random, just a point).\\
+Run through and catch those unique k's.\\
+Once the graph has been run-through, we should have all of our given k's (if graph properties hold true).\\
+We can compare the list of actual k customers to the wanted number if we want a specific number of k customers that are diverse.\\
+By default any k in the post-search list should be diverse.\\
+
+\vspace{0.1in}
+
+This too can be reduced into 3SAT. If any instance of 3SAT is satisfiable, then our transformed instance of the Diverse Subset problem has k-indep nodes. Given the boolean satifiability problem (SAT, which is by nature a reduced 3SAT) we can show Diverse Subset problem is NP-complete. We showed our Independent set was Lower than or equal to (sub p) to the diverse set such as the SAT proves the given boolean's satisfiability true via lower than or equal to (sub p) the given condition.
+If we say B is the amount of the nodes (or cost) we can set this equal to k and prove it using the above explanations.\\
+
+
+%
+%
+\vspace{0.1in}
+%
+%
+
+
+
+\end{homeworkProblem}
+
+
+
+
+\pagebreak
+
+\begin{homeworkProblem}
+
+
+Page 511, \#13.
+
+\begin{center}
+\includegraphics[scale = .60]{problem3figure1.PNG}\\
+\includegraphics[scale = .60]{problem3figure2.PNG}\\
+\end{center}
+
+
+The Winner Determination in Combinatorial Auctions problem is NP-complete. If we take a set of biders, in polynomial time we can check that no 2 bought/bid on the same item (their total value being B). Just like problem 2, we can prove one subset is lower than or equal to another that we are looking for and show through a psuedo code/explanation that it is NP-complete.(this problem is wierdly similar to the Diverse Subset problem as in a perspective we can sort of look at this as a conditional Diverse Subset problem).\\
+
+We can show a set in our graph is (through Karp reduction type denotation) is lower than or equal to (sub p) our 'Diverse set'. Given a graph G and a number of k's (such as the last problem) we can set a bidder to each node (just like our customers earlier). Just like problem 2 we can set each edge of G to an item for bidding, so that each bidder places a bid on each item e. Each e is unique as they can't 'overlap' and share very specific nodes. If we set each bid to 1 (or any equal arbitrary value) we can ask each bidder if they can go with such costs (set of bids) resultig is a total value of B = k.\\
+
+This holds as the previous properties we discussed in problem 2's graphs hold here as well. We can also prove this is NP-complete still as it is a conditional version of the Diverse Subset problem which is proven to be NP complete. (two are similar by nature, just different names and different costs to check/return).\\
+
+
+
+\end{homeworkProblem}
+
+
+
+
+
+
+
+\end{document}

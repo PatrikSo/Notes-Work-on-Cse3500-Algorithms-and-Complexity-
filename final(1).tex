@@ -1,0 +1,492 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+
+\usepackage{listings}
+\usepackage{color}
+\usepackage{textcomp}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{property}{Property}
+\newtheorem{lemma}{Lemma}
+\newtheorem{fact}{Fact}
+\newtheorem{definition}{Definition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{convention}{Convention}
+\newtheorem{remark}{Remark}
+\newtheorem{observation}{Observation}
+\newtheorem{conjecture}{Conjecture}
+
+
+\definecolor{pblue}{rgb}{0.13,0.13,1}
+\definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.9,0,0}
+\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+
+
+
+
+\lstdefinelanguage{bash}{
+  keywords={sudo, apt-get, ifconfig, mosquitto_pub, mosquitto_sub, ping},
+  basicstyle=\small,
+  alsoletter=?!-,
+  alsodigit=\$\%&*+./:<=>@^_~,
+  sensitive=false,
+  morecomment=[l]{\#},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]'',
+  basicstyle=\small\ttfamily,
+  keywordstyle=\bf\ttfamily\color[rgb]{0,.3,.7},
+  commentstyle=\color[rgb]{0.133,0.545,0.133},                                                                            
+  stringstyle={\color[rgb]{0.75,0.49,0.07}},
+  upquote=true,
+  breaklines=true,
+  breakatwhitespace=true,
+  literate=*{`}{{`}}{1},
+  keywords=[2]{myRed},
+  keywordstyle=[2]\color{red}
+}
+
+\lstset{language=Python,
+  keywords={nx,plt,np,mp,pg},
+  showspaces=false,
+  showtabs=false,
+  breaklines=true,
+  showstringspaces=false,
+  breakatwhitespace=true,
+  commentstyle=\color{pgreen},
+  keywordstyle=\color{red},
+  stringstyle=\color{pred},
+  basicstyle=\ttfamily,
+  moredelim=[il][\textcolor{pgrey}]{$$},
+  moredelim=[is][\textcolor{pgrey}]{\%\%}{\%\%}
+}
+
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{midtermProblemCounter}
+\setcounter{midtermProblemCounter}{1}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+
+\newenvironment{midtermProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{midtermProblem}{#1}
+    \fi
+    \section{Problem \arabic{midtermProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{midtermProblemCounter}
+}{
+    \exitProblemHeader{midtermProblemCounter}
+} 
+
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Final}
+\newcommand{\hmwkDueDate}{May 8, 2019}
+\newcommand{\hmwkClass}{Algorithms and Complexity}
+\newcommand{\hmwkClassTime}{}
+\newcommand{\hmwkClassInstructor}{Professor Bradford}
+\newcommand{\hmwkAuthorName}{\textbf{Patrik Sokolowski} }
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at the start of class}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\newcommand{\id}{\mbox{\bf \em id}}
+\newcommand{\lo}{\mbox{\bf \em loc}}
+\newcommand{\lcm}{\mbox{\rm lcm}}
+\newcommand{\g}{\mbox{\bf \em g}}
+\newcommand{\reg}{\mbox{\bf \em r}}
+\newcommand{\B}{\mbox{\bf Ball}}
+\newcommand{\Prob}{\mbox{\sf \hbox{I\kern-.15em P}}}
+
+\usepackage{textcomp}
+\usepackage{booktabs}
+
+
+\begin{document}
+
+\maketitle
+
+
+\pagebreak
+
+\begin{midtermProblem}
+
+Internet Advertisement Impression Auctions sell advertisement space for individuals.
+These ad-space sellers differentiate their ad impressions by attributes and categories.
+Different attributes and categories may have different reserve prices.
+However, the number of attributes and categories may vary greatly, so the key question is
+how much revenue is lost given fewer reserve prices?
+
+Some defintions,
+
+\begin{enumerate}
+
+\item $R_{\ell}$ is the total expected revenue given the best choices of upto $\ell$ reserve prices.
+
+\item $m$ bidders $d_j \in [m]$.
+
+\item $n$ impression-types - each as a single auction item
+
+\item Impression type $t_i$ occurs with probability $p_i$.
+      That is, $\Prob[ I = t_i] = p_i$.
+
+      So, $1 = p_1 + p_2 + \cdots + p_n$.
+
+\item Impression type $t_i$ gets an evaluation $v(i,j)$ from bidder $d_j$.
+      This evaluated value is not necessarily a bid.
+
+\item There are $\ell$ reserve prices $r_1, r_2, \cdots, r_{\ell}$.
+
+\item Each impression-type $t_i$ is assigned the max reserve price that is lower or equal to $v(i,j)$ for some $j \in [m]$.
+      Or $0$ is when no reserve price exists.
+
+      Each impression-type $i$'s highest bid is $h_i$.
+
+\item Set the reserve prices,
+
+      \begin{eqnarray*}
+      r_i' & = &  \left\{ \begin{array}{l}
+			  \displaystyle \max_{i \in [\ell]} \{ v(i,j)  \}\\
+			  0
+			\end{array}
+		\right.
+      \end{eqnarray*}
+      for each advertisement impression $i \in [n]$.
+
+
+\end{enumerate}
+
+
+The highest bidder is $d_h$ and their bid for impression $i$ is $b(i,h)$. 
+The second highest bidder is $d_s$ with bid $b(i,s)$ for impression $i$.
+If there is a single bidder for impression $i$, then $b(i,s) = 0$.
+
+
+\paragraph{The Bidding Process works as follows}
+
+\begin{enumerate}
+
+\item Randomly arriving impression-type $t_i$ is announced.
+
+\item Each bidder $j$ announces their bids $b(i,j)$ for impression-type $t_i$.
+
+\item Winning bidders are determined by the rules in Table~\ref{Test-list}.
+
+\end{enumerate}
+
+
+
+
+
+\begin{flushleft}
+\begin{table*}[h]
+    \begin{tabular}{lll}
+    \toprule 
+    {\bf Condition} & {\bf Description} & {\bf Revenue}\\
+    \cmidrule{1-3}
+    If $b(i,h) < r_i'$			& No bidder wins					& $0$ \\
+    If $b(i,s) < r_i' \leq b(i,h)$      & Bidder $d_h$ wins paying price $r_i'$			&  $r_i'$ \\
+    If $r_i' \leq b(i,s)$		& Bidder $d_h$ wins paying the second price $b(i,s)$	& $b(i,s)$ \\
+    \bottomrule
+    \end{tabular}
+    \caption{\bf Tests and their target}
+    \label{Test-list}
+\end{table*}
+\end{flushleft}
+
+
+Since this is a second-price auction, selecting the reserve prices $r_i' = h_i$ {\bf prove} the next fact.
+
+
+
+\begin{fact}
+{\sf
+Given the probabilites $p_1 + \cdots + p_n = 1$ for impressions 1 though~$n$ respectively.
+At most, it must be that,
+\begin{eqnarray*}
+R_{\infty} & = & \sum_{i=1}^{n} h_i \, p_i.
+\end{eqnarray*}
+}
+\end{fact}
+
+We can prove that this Fact is most true. Using the given information:\\
+
+1) R_{\infty} & =  & $ Total revenue gained through given probability\\ 
+2) p_i & = & $ given n probabilities in summation\\
+3) that the "probabilites $p_1 + \cdots + p_n = 1$ for impressions 1 though~$n$ respectively" (definition 4)\\
+4) given n impression types, h_n $ is the total revenue of given impression types.
+\\
+\hspace{3mm}
+\\
+We can prove R_{\infty} & = & \sum_{i=1}^{n} h_i \, p_i.\\
+
+We can safely say using given info number 3 (and definition 4):  R_{\infty} & = & \sum_{i=1}^{n} h_i \, ($1 ( a factor of probability)).\\
+
+Given info 1 states that R_{\infty} & =  & $ Total revenue gained through given probability, and that the summation of h_i$ (i being n summation types) is the total revenue of bids in an n number of bids, both represent the same value. h_i$ total revenue being modified by the probabilities p_i$ (our factor of probability) we get total (sum through summation) revenue gained with probability, which R_{\infty}$  is by definition.\\
+
+
+
+
+\end{midtermProblem}
+%
+%
+%
+
+\pagebreak
+
+%
+%
+%
+\begin{midtermProblem}
+
+Let $H_n$ be the $n$-th harmonic number.
+That is, 
+\begin{eqnarray*}
+H_n = 1 + \frac{1}{2} + \cdots + \frac{1}{n}.
+\end{eqnarray*}
+
+Also, $R_{1}$ is maximum revenue given the {\em best selection} of a single reserve price.
+
+Without loss of generality, let the highest bids be ordered as $h_1 \geq h_2 \geq \cdots \geq h_n$.
+Thus, given a single reserve price $r' = h_i$ for all ad impressions, then
+this reseve price gives total revenue $i h_i$.
+
+
+Prove the next lemma:
+
+%
+%
+%
+\begin{lemma}
+{\sf
+Suppose the impression-types are randomly and uniform distributed, then
+\begin{eqnarray*}
+R_{1} & \geq & R_{\infty}/H_n.
+\end{eqnarray*}
+}
+\label{mainLemma}
+\end{lemma}
+%
+
+Using the given information:\\
+
+1) R_1$ & = & the max revenue given best selection of a single reserve price.\\
+2) R_{\infty} & = & \sum_{i=1}^{n} h_i \, p_i. $ & = & Expected revenue with probability.\\
+3) H_n = 1 + \frac{1}{2} + \cdots + \frac{1}{n}.
+\\
+\vspace{2mm}
+\\
+$We can already say that  R_{1} & \geq & R_{\infty}/H_n.$ will be smaller by some unkown as of yet degree as R_1$ represents total best reserve prices as the non-bias reserve price total R_{\infty}$ is being divided (making it naturally smaller). This lemma is also assuming  $\Prob[ I_i = i] = \frac{1}{n}$ due to all impression types being the same probability. n total impression types: $i \in [1, 2, ... ,n]$. We also have the harmonic series being able to & = & log(n) by constant. 
+\\
+\vspace{2mm}
+\\
+4) $\Prob[ I_i = i] = \frac{1}{n}$\\
+5) $i \in [1, 2, ... ,n]$\\
+6)  H_n = 1 + \frac{1}{2} + \cdots + \frac{1}{n} & = & log(n).\\
+7) R_{$\ell$} & = & total revenue for $\ell$ reserve prices.
+\\
+\vspace{3mm}
+\\
+We can restate R_{1} & \geq & R_{\infty}/H_n. $ as R_{1} & \geq & R_{\infty}/log(n).\\
+$Leading to R_{1} * log(n) & \geq & R_{\infty}.\\
+
+Being divided by a seriese will make the numerator smaller and smaller so any summation concerning the right side of the lemma will always be smaller. Given no differentiation in probability on the right leads to a greater constant in the end in this case. \\
+
+In a given scenario:\\
+
+R_1 $<$ R_{1} & \geq & R_{\infty}/H_n. $ for all uniform probability impression types.\\
+for all i : $\frac{ih_i }{n} <  R_{\infty}/H_n.\\
+
+\end{midtermProblem}
+%
+%
+%
+
+\pagebreak
+
+
+\begin{midtermProblem}
+
+
+
+The next proof uses the Euler-Mascheroni constant $\gamma$ where:
+
+    \begin{eqnarray*}
+    \gamma & = & H_n - \ln n - o(1)\\
+    	   & = & \lim_{n \rightarrow \infty} \left( -\ln(n) + \sum_{k-1}^{n} \frac{1}{k} \right)\\
+	   & = & \int_{1}^{\infty} \left( \frac{1}{\lfloor x \rfloor} - \frac{1}{x} \right) dx.
+    \end{eqnarray*}
+
+It is well known that $\gamma$ is about $0.57721 \cdots$.
+
+Prove the next theorem.
+
+\begin{theorem}
+{\sf
+Suppose the impression probabilities are randomly and uniformly distributed.
+Then for all $\ell: \ln^{1/2-\epsilon} n \geq \ell \geq 1$ and an arbitrarily small constant $\epsilon>0$, it must be that,
+\begin{eqnarray*}
+R_{\ell} & \geq & (1 - o(1)) \left( \ell/H_n \right) R_{\infty}.
+\end{eqnarray*}
+Also, there is a uniform probability instance where $R_{\ell} \leq \left( \ell/H_n \right) R_{\infty}$.
+}
+\end{theorem}
+
+Impression types here are uniform
+\\
+\vspace{2mm}
+\\
+First part: Let c = ln^{ \in} n and c^{\ell } \leq n. Say:\\
+
+ \sum_{i=1}^{ c^{\ell } } $\frac{ h_{i} }{n} $ \geq R_{\infty} / c,\\
+
+then by Lemma 1, one single reserve price may have revenue of at least:\\
+
+$\frac{ \sum_{i=1}^{ c^{\ell } } $\frac{ h_{i} }{n}$  }$ /  {H_{c^{\ell} }} \geq (1 - o(1)) \frac{R_{\infty}}{\ell ln(c)}, Why?\\
+   $If we assume uniform probabilities we can constantly assume R_{\ell} \geq (1 - o(1)) * \ell / H_n * R_{\infty} . $After this we also use the Euler-Mascheroni constant rule to change the summation into a more 'adjustable' algebriac form.\\
+\geq (1 - o(1)) \frac{ \ell R_{\infty}}{ (ln^{1-2\in} n) c ln(c)}, Why?\\
+   $We algebriacly move some of the terms around and further set up for the upcoming steps (now we have the c's in the denominator.\\
+= (1 - o(1)) $ \frac{ {\ell} R_{\infty}}{ (ln^{1-\in} n)  ln ln^{\in}(c)}, Why?\\
+   $Here we define c = ln^{\in} n ($which helps give us the first step and the further steps on).\\
+= (1 - o(1)) $\frac{ln^{\in}}{ln ln^{\in} n} * \frac{\ell}{ln n} * R_{\infty}, Why?\\
+  $There exists an instant with uniform probabilities for R_{\ell} \leq \ell / H_n * R_{\infty} . \\
+\geq (1 - o(1)) \frac{\ell}{H_n } * R_{\infty},  $Why? Since $\frac{ln^{\in} n}{ln ln^{\in} n} \geq 1.\\
+  $In the last step, due to the reserve prices always being as good as 1, we 'canceled' out $\frac{ln^{\in} n}{ln ln^{\in} n} $and moved $H_n $back in there.\\
+
+Through each step we can see that the reserve prices are always at least as good as 1. \\
+
+
+
+
+\end{midtermProblem}
+
+
+
+
+
+
+
+
+
+\end{document}

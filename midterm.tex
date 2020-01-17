@@ -1,0 +1,349 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+
+\usepackage{listings}
+\usepackage{color}
+\usepackage{textcomp}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{property}{Property}
+\newtheorem{lemma}{Lemma}
+\newtheorem{fact}{Fact}
+\newtheorem{definition}{Definition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{convention}{Convention}
+\newtheorem{remark}{Remark}
+\newtheorem{observation}{Observation}
+\newtheorem{conjecture}{Conjecture}
+
+
+\definecolor{pblue}{rgb}{0.13,0.13,1}
+\definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.9,0,0}
+\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+
+
+
+
+\lstdefinelanguage{bash}{
+  keywords={sudo, apt-get, ifconfig, mosquitto_pub, mosquitto_sub, ping},
+  basicstyle=\small,
+  alsoletter=?!-,
+  alsodigit=\$\%&*+./:<=>@^_~,
+  sensitive=false,
+  morecomment=[l]{\#},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]'',
+  basicstyle=\small\ttfamily,
+  keywordstyle=\bf\ttfamily\color[rgb]{0,.3,.7},
+  commentstyle=\color[rgb]{0.133,0.545,0.133},                                                                            
+  stringstyle={\color[rgb]{0.75,0.49,0.07}},
+  upquote=true,
+  breaklines=true,
+  breakatwhitespace=true,
+  literate=*{`}{{`}}{1},
+  keywords=[2]{myRed},
+  keywordstyle=[2]\color{red}
+}
+
+\lstset{language=Python,
+  keywords={nx,plt,np,mp,pg},
+  showspaces=false,
+  showtabs=false,
+  breaklines=true,
+  showstringspaces=false,
+  breakatwhitespace=true,
+  commentstyle=\color{pgreen},
+  keywordstyle=\color{red},
+  stringstyle=\color{pred},
+  basicstyle=\ttfamily,
+  moredelim=[il][\textcolor{pgrey}]{$$},
+  moredelim=[is][\textcolor{pgrey}]{\%\%}{\%\%}
+}
+
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{midtermProblemCounter}
+\setcounter{midtermProblemCounter}{1}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+
+\newenvironment{midtermProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{midtermProblem}{#1}
+    \fi
+    \section{Problem \arabic{midtermProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{midtermProblemCounter}
+}{
+    \exitProblemHeader{midtermProblemCounter}
+} 
+
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Midterm}
+\newcommand{\hmwkDueDate}{April 5, 2019}
+\newcommand{\hmwkClass}{Algorithms and Complexity}
+\newcommand{\hmwkClassTime}{}
+\newcommand{\hmwkClassInstructor}{Professor Bradford}
+\newcommand{\hmwkAuthorName}{\textbf{Patrik Sokolowski} }
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at the start of class}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\newcommand{\id}{\mbox{\bf \em id}}
+\newcommand{\lo}{\mbox{\bf \em loc}}
+\newcommand{\lcm}{\mbox{\rm lcm}}
+\newcommand{\g}{\mbox{\bf \em g}}
+\newcommand{\reg}{\mbox{\bf \em r}}
+\newcommand{\B}{\mbox{\bf Ball}}
+
+\begin{document}
+
+\maketitle
+
+
+\pagebreak
+
+\begin{midtermProblem}
+
+Recall our definition of expander graphs.
+
+
+%
+%
+\vspace{0.1in}
+%
+%
+
+Assuming an undirected bipartite graph $G=({\cal I} \cup {\cal O}, E)$ where the vertex partition ${\cal I}$ and ${\cal O}$ are so that
+
+\begin{eqnarray*}
+|{\cal I}| & = & |{\cal O}| \ \ = \ \ p^2\\
+\end{eqnarray*}
+for some prime $p > 2$.
+
+Now, take all inputs ${\cal I}$ as ${\cal I} = \displaystyle \bigcup_{j=0}^{p-1} I_j$ where each $I_j$ is an input block so $|I_j| = p$.
+Likewise, for all outputs ${\cal O}$ it must be that ${\cal O} = \displaystyle \bigcup_{j=0}^{p-1} O_j$ where each $O_j$ is an output block
+where $|O_j| = p$.
+
+Define $\mathbb{Z}_{p}^{+} = \{ 0, 1, \cdots, p-1 \}$ where addition is computed mod $p$.
+
+For any input node $(j,k) \in I_j$ is position $k$ in block $j$ where
+$j \in \mathbb{Z}_{p}^{+}$ and $k \in \mathbb{Z}_{p}^{+}$.
+The graph $G_4$ has the following sets of edges:\\
+\begin{enumerate}
+
+\item {\em Identity}:
+$\id(j,k) \ \longrightarrow \ (j,k)$.
+
+\item {\em Local Shift}:
+$\lo (j,k) \ \longrightarrow \ (j, \ (j+k+1) \bmod p)$.
+
+\item {\em Global Shift}:
+$\g (j,k) \ \longrightarrow \ ((j+k) \bmod p, \ k)$.
+\end{enumerate}
+\noindent
+These edges are directed from the inputs ${\cal I}$ to the outputs ${\cal O}$. 
+The adversary can only select inputs to prevent expansion among the outputs.
+In general, for block $I_j$, an adversary selects input elements $\widehat{I}_j \subseteq I_j$
+and these selected inputs have output neighbors $\widehat{O} \subseteq {\cal O}$.
+
+
+
+The global shift $\g$ has the inverse $\g^{-1}(j,k) = (j-k,k)$ since $\g(j+k-k,k) = (j,k)$ computed mod-$p$.
+Further, $\g_1(j,k), \lo_1(j,k), \id_1(j,k),$ denotes the first 
+component of the pair, while $\g_2(j,k), \lo_2(j,k), \id_2(j,k)$.
+
+
+\begin{figure}[ht]
+ %\vspace{-0.5cm}
+ \begin{center}
+ \includegraphics[height=8cm,width=5cm]{5x5-global.png}
+ \end{center}
+ \vspace{-0.6cm}
+\caption{Selected edges of global permutation for $p=5$}
+\label{fig:global}
+\end{figure}
+
+
+\begin{figure}[ht]
+ %\vspace{-0.5cm}
+ \begin{center}
+ \includegraphics[height=8cm,width=5cm]{5x5-local.png}
+ \end{center}
+ \vspace{-0.6cm}
+\caption{Local edges from $\lo$ for $p=5$}
+\label{fig:global}
+\end{figure}
+
+\vspace{0.2in}
+
+\fbox{Our focus is on showing expansion with exactly $p(p-1)/2$ inputs.}
+
+\vspace{0.2in}
+
+{\bf Question 1}:  Show that given the local and identity permutations `most' of the inputs must follow each local pattern.\\
+\vspace{20mm}\\
+{\bf Question 2}:  Show that given the global permutations `most' of the inputs must follow the global pattern.\\
+\vspace{20
+mm}\\
+{\bf Question 3}:  How may we combine the local, id and global permutations to show we have expansion?\\
+
+    
+
+\end{midtermProblem}
+
+
+\pagebreak
+
+
+\begin{midtermProblem}
+
+P 246, \# 4.
+
+  \begin{center}
+  \includegraphics[scale = .70]{problem3figure1.PNG}\\
+  \includegraphics[scale = .70]{problem3figure2.PNG}\\
+  \end{center}
+
+We can use convolution.\\ 
+If we have a vector set of (q_1 , q_2 , ... , q_n )$  and a vector set of (n^{-2} , (n-1)^{-2} , ... , 1/4 , 0 , -1 , -1/4 , ... , -n^{-2} )$\\
+For each j we can put the convolution of both vector sets and have the equivalent of the coulumb equation:\\
+
+\sum_{i<j} \frac{q_i}{ (j-i)^2 } + \sum_{i<j} \frac{-q_i}{ (j-i)^2 }\\
+
+We simply multiply every $q_i with Cq_i $in the end to get the full F_j.\\
+$This will get the faster running time they wanted.\\
+
+\end{midtermProblem}
+
+
+
+
+
+
+
+
+
+\end{document}
